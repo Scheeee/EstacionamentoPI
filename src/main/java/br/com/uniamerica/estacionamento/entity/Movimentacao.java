@@ -2,6 +2,7 @@ package br.com.uniamerica.estacionamento.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,21 +15,23 @@ import java.time.LocalTime;
 @Table(name = "Movimentacaos", schema = "public")
 public class Movimentacao extends AbstractEntity {
     @Valid
+    @NotBlank(message = "campo não informado")
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "veiculo", nullable = false, unique = true)
+    @JoinColumn(name = "veiculo")
     private Veiculo veiculo;
     @Valid
+    @NotBlank(message = "Campo não informado")
     @Getter @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "condutor", nullable = false)
+    @JoinColumn(name = "condutor")
     private Condutor  condutor;
-    @NotNull
+    @NotNull(message = "O Tempo de saída não pode ser nulo")
     @Getter @Setter
     @Column(name = "saida")
     LocalDateTime saida;
-    @NotNull
+    @NotNull(message = "O Tempo de entrada não pode ser nulo")
     @Getter @Setter
     @Column(name = "entrada", nullable = false)
     LocalDateTime entrada;
@@ -36,7 +39,6 @@ public class Movimentacao extends AbstractEntity {
     @Getter
     @Setter
     @Column(name = "tempo")
-
     LocalTime tempo;
     @Getter
     @Setter

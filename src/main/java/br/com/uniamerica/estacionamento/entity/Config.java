@@ -33,7 +33,8 @@ public class Config extends AbstractEntity{
     @Getter @Setter
     @Column(name = "Tempo de desconto")
     private LocalTime tempoDeDesconto;
-    @Getter @Setter
+    @Getter
+    @Setter
     @Column(name = "gerar desconto")
     private boolean gerarDesconto;
     @Getter @Setter

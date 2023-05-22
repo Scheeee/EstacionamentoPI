@@ -15,7 +15,7 @@ public class Condutor extends AbstractEntity {
 
 
     @NotBlank(message = "Campo não informado")
-    @Size(min = 2, max = 50, message = "A quantidade de caracteres é inválida")
+    @Size(max = 50, message = "A quantidade de caracteres é inválida")
     @Getter @Setter
     @Column(name = "nome")
     private String nome;

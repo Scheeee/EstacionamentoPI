@@ -1,14 +1,20 @@
 package br.com.uniamerica.estacionamento.controller;
 
+import br.com.uniamerica.estacionamento.entity.Condutor;
 import br.com.uniamerica.estacionamento.entity.Config;
 import br.com.uniamerica.estacionamento.repository.ConfigRepository;
 import br.com.uniamerica.estacionamento.service.ConfiguracaoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-    @Controller
+import java.util.Optional;
+
+@Controller
     @RequestMapping(value = "/api/Config")
     public class ConfigController {
         
@@ -16,18 +22,71 @@ import org.springframework.web.bind.annotation.*;
         @Autowired
         private  ConfigRepository configRep;
         @Autowired
-        private ConfiguracaoService configuracaoService;
+        final ConfiguracaoService configService;
+
+        public ConfigController(ConfiguracaoService configService) {
+            this.configService = configService;
+        }
+
 
         @GetMapping("/{id}")
-        public ResponseEntity<Config> findById(@PathVariable("id") final Long id){
-            return ResponseEntity.ok(new Config());
+        public ResponseEntity<?> findById(@PathVariable("id") Long id){
+            Optional<Config> configOptional = configService.findById(id);
+            if(!configOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Configuração não encontrada");
+            }
+            return ResponseEntity.ok(configService.findById(id));
         }
 
         @GetMapping("/lista")
-        public ResponseEntity <?> ListaCompleta(){
-            return ResponseEntity.ok(this.configRep.findAll());
-
+        public ResponseEntity <?> getAllConfig(){
+            return ResponseEntity.ok(configService.findAll());
         }
+    @PostMapping
+    public ResponseEntity<Object> saveConfig(@RequestBody Config config){
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(configService.save(config));
+        }
+        catch (DataIntegrityViolationException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateConfig(@PathVariable(value = "id")Long id,@RequestBody @Valid Config config){
+        Optional<Config> configOptional = configService.findById(id);
+        if(!configOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Configuração não encontrada");
+        }
+
+        var configNovo = configOptional.get();
+
+        configNovo.setValorHora(config.getValorHora());
+        configNovo.setValorMinutoMulta(config.getValorMinutoMulta());
+        configNovo.setInicioExpediente(config.getInicioExpediente());
+        configNovo.setFimExpediente(config.getFimExpediente());
+        configNovo.setTempoDeDesconto(config.getTempoDeDesconto());
+        //configNovo.setGerarDesconto(config.getGerarDesconto());
+        configNovo.setVagasCarro(config.getVagasCarro());
+        configNovo.setVagasMoto(config.getVagasMoto());
+        configNovo.setVagasVan(config.getVagasVan());
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(configService.save(config));
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteConfig(@PathVariable(value = "id") Long id){
+        Optional<Config> configOptional = configService.findById(id);
+        if(!configOptional.isPresent()){
+            return  ResponseEntity.status(HttpStatus.OK).body(("Configuração não encontrada"));
+        }
+        configService.delete(configOptional.get());
+        return  ResponseEntity.status(HttpStatus.OK).body("Configuração deletada com sucesso");
+
+    }
 
 
 

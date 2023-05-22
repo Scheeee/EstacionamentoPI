@@ -13,7 +13,7 @@ import java.util.Map;
 @Controller
 public abstract class AbstractController {
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-    @RequestMapping(value = "/condutor")
+    @RequestMapping(value = "/api/condutor")
     public class CondutorController extends AbstractController{
 
         @Autowired
@@ -39,7 +39,6 @@ import java.util.Optional;
         @GetMapping("/lista")
         public ResponseEntity <?> getALlCondutores(){
             return ResponseEntity.ok(condutorService.findAll());
-
         }
     @PostMapping
     public ResponseEntity<Object> saveCondutor(@RequestBody @Valid Condutor condutor){
@@ -52,26 +51,25 @@ import java.util.Optional;
 
     }
 
-   /*@PutMapping
-    public ResponseEntity<Object> updateCondutor(@RequestBody @Valid Condutor condutor, @PathVariable(value = "id"){
-        Optional<Condutor> condutorOptional;
-        condutorOptional = condutorService.findById(id);
+   @PutMapping("/{id}")
+    public ResponseEntity<Object> updateCondutor(@PathVariable(value = "id")Long id,@RequestBody @Valid Condutor condutor){
+        Optional<Condutor> condutorOptional = condutorService.findById(id);
         if(!condutorOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Condutor não encontrado");
         }
 
-        var condutorNovo = condutorOptional.get();
-        condutorNovo.setAtivo();
-        condutorNovo.setEdicao();
-        condutorNovo.setNome();
-        condutorNovo.setCpf();
-        condutorNovo.setTelefone();
-        condutorNovo.setTempoPago();
-        condutorNovo.setTempoDesconto();
+       var condutorNovo = condutorOptional.get();
+
+       condutorNovo.setEdicao(condutor.getEdicao());
+       condutorNovo.setNome(condutor.getNome());
+       condutorNovo.setCpf(condutor.getCpf());
+       condutorNovo.setTelefone(condutor.getTelefone());
+       condutorNovo.setTempoPago(condutor.getTempoPago());
+       condutorNovo.setTempoDesconto(condutor.getTempoDesconto());
         return ResponseEntity.status(HttpStatus.OK).body(condutorService.save(condutor));
     }
 
-    */
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCondutor(@PathVariable(value = "id") Long id){

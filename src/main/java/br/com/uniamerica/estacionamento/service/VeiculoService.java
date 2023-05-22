@@ -4,26 +4,36 @@ import br.com.uniamerica.estacionamento.repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class VeiculoService {
     @Autowired
-    private VeiculoRepository veiculoRepository;
+    final VeiculoRepository veiculoRepository;
 
-    @Transactional(rollbackOn = Exception.class) //propagation
-    public void cadastrar(final Veiculo veiculo){
-
-        veiculoRepository.save(veiculo);
+    public VeiculoService(VeiculoRepository veiculoRepository) {
+        this.veiculoRepository = veiculoRepository;
     }
-    public Veiculo editar(Long id, Veiculo veiculo) {
-        Veiculo veiculo1 = veiculoRepository.findById(id).orElse(null);
-        if ((veiculo1 == null) || veiculo1.equals(veiculo.getId())) {
-            throw new RuntimeException("Não foi possível identificar o registro informado");
-        }
-        veiculo1.setPlaca(veiculo.getPlaca());
-        return veiculoRepository.save(veiculo1);
+
+    @Transactional//(rollbackOn = Exception.class)
+    public Veiculo save(Veiculo veiculo) {
+        return veiculoRepository.save(veiculo);
+    }
+
+    public List<Veiculo> findAll(){
+        return veiculoRepository.findAll();
+    }
+
+    public Optional<Veiculo> findById(long id){
+        return veiculoRepository.findById(id);
+    }
+
+    @Transactional
+    public void delete(Veiculo veiculo) {
+        veiculoRepository.delete(veiculo);
     }
 
 

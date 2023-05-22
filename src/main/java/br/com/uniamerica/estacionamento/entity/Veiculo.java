@@ -25,22 +25,22 @@ public class Veiculo extends AbstractEntity{
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "modelo", nullable = false)
      private Modelo modelo;
-    @NotBlank
+    @NotBlank(message = "Campo não informado")
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name = "cor", nullable = false)
+    @Column(name = "cor")
      private Cor cor;
-    @NotBlank
+    @NotBlank(message = "Campo não informado")
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo", nullable = false)
+    @Column(name = "tipo")
      private Tipo tipo;
-    @NotNull
+    @NotNull(message = "campo não informado")
     @Getter
     @Setter
-    @Column(name = "ano", nullable = false)
+    @Column(name = "ano")
      private int ano;
 
 }

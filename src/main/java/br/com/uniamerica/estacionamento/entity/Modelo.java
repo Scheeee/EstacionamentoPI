@@ -12,17 +12,18 @@ import lombok.Setter;
 @Table(name = "Modelos", schema = "public")
 public class Modelo extends AbstractEntity  {
 
-    @NotBlank
-    @Size(min = 2, max = 50)
+    @NotBlank(message = "Campo não informado")
+    @Size(min = 2, max = 50, message = "Tamanho inválido")
     @Getter
     @Setter
-    @Column(name = "nome", nullable = false, unique = true,length = 50)
+    @Column(name = "nome")
     private String nome;
     @Valid
+    @NotBlank(message = "Campo não informado")
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "veiculo", nullable = false)
+    @JoinColumn(name = "veiculo")
     private Marca marca;
 
 }
