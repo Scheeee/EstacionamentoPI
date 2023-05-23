@@ -14,15 +14,17 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "Movimentacaos", schema = "public")
 public class Movimentacao extends AbstractEntity {
-    @Valid
+
     @NotBlank(message = "campo não informado")
+    @Valid
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "veiculo")
     private Veiculo veiculo;
-    @Valid
+
     @NotBlank(message = "Campo não informado")
+    @Valid
     @Getter @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "condutor")

@@ -1,5 +1,6 @@
 package br.com.uniamerica.estacionamento.service;
 import br.com.uniamerica.estacionamento.entity.Condutor;
+import br.com.uniamerica.estacionamento.entity.Config;
 import br.com.uniamerica.estacionamento.entity.Modelo;
 import br.com.uniamerica.estacionamento.entity.Movimentacao;
 import br.com.uniamerica.estacionamento.repository.MovimentacaoRepository;
@@ -37,5 +38,8 @@ public class MovimentacaoService {
         movimentacaoRepository.delete(movimentacao);
     }
 
+    public List<Movimentacao> findByAtivo() {
+        return movimentacaoRepository.findByAtivo(true);
+    }
 
 }

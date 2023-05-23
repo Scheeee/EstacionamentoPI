@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/api/Veiculo")
+@RequestMapping(value = "/api/veiculo")
 
 public class VeiculoController {
     @Autowired
@@ -37,6 +37,11 @@ public class VeiculoController {
     @GetMapping("/lista")
     public ResponseEntity <?> getALlVeiculo(){
         return ResponseEntity.ok(veiculoService.findAll());
+    }
+
+    @GetMapping("/ativo")
+    public ResponseEntity<?> getByAtivo(){
+        return ResponseEntity.ok(veiculoService.findByAtivo());
     }
     @PostMapping
     public ResponseEntity<Object> saveVeiculo(@RequestBody @Valid Veiculo veiculo){

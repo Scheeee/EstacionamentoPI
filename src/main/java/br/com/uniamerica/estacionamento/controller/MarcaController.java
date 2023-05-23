@@ -40,6 +40,11 @@ public class MarcaController {
     public ResponseEntity <?> getAllMarca(){
         return ResponseEntity.ok(marcaService.findAll());
     }
+
+    @GetMapping("/ativo")
+    public ResponseEntity<?> getByAtivo(){
+        return ResponseEntity.ok(marcaService.findByAtivo());
+    }
     @PostMapping
     public ResponseEntity<Object> saveMarca(@RequestBody @Valid Marca marca){
         //try {

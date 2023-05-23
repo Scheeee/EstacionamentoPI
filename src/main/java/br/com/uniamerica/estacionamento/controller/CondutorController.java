@@ -1,5 +1,6 @@
 package br.com.uniamerica.estacionamento.controller;
 import br.com.uniamerica.estacionamento.entity.Condutor;
+import br.com.uniamerica.estacionamento.entity.Config;
 import br.com.uniamerica.estacionamento.repository.CondutorRepository;
 import br.com.uniamerica.estacionamento.repository.MovimentacaoRepository;
 import br.com.uniamerica.estacionamento.service.CondutorService;
@@ -32,13 +33,13 @@ import java.util.Optional;
         }
 
     @GetMapping("/{id}")
-        public ResponseEntity<?> findById(@PathVariable("id")  Long id){
-           Optional<Condutor> condutorOptional = condutorService.findById(id);
-           if(!condutorOptional.isPresent()) {
-               return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Condutor não encontrado");
-           }
-        return ResponseEntity.ok(condutorService.findById(id));
+    public ResponseEntity<?> findById(@PathVariable("id") Long id){
+        Optional<Condutor> condutorOptional = condutorService.findById(id);
+        if(!condutorOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Condutor não encontrada");
         }
+        return ResponseEntity.ok(condutorService.findById(id));
+    }
     @GetMapping("/lista")
         public ResponseEntity <?> getALlCondutores(){
             return ResponseEntity.ok(condutorService.findAll());
@@ -52,12 +53,13 @@ import java.util.Optional;
 
     @PostMapping
     public ResponseEntity<Object> saveCondutor(@RequestBody @Valid Condutor condutor){
-         try {
+
+       // Optional<Condutor> condutorOptional = condutorService.findByNome(nome);
+        //if(condutorOptional.isPresent()) {
+         //   return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Este condutor já foi cadastrado!");
+        //}
+
         return ResponseEntity.status(HttpStatus.CREATED).body(condutorService.save(condutor));
-         }
-        catch (DataIntegrityViolationException e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-         }
 
     }
 

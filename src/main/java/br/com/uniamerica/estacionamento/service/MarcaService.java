@@ -1,4 +1,5 @@
 package br.com.uniamerica.estacionamento.service;
+import br.com.uniamerica.estacionamento.entity.Condutor;
 import br.com.uniamerica.estacionamento.entity.Marca;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
 import br.com.uniamerica.estacionamento.repository.ModeloRepository;
@@ -36,6 +37,9 @@ public class MarcaService {
     @Transactional
     public void delete(Marca marca) {
         marcaRepository.delete(marca);
+    }
+    public List<Marca> findByAtivo() {
+        return marcaRepository.findByAtivo(true);
     }
 
 }

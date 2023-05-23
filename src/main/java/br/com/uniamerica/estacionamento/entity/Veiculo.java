@@ -13,14 +13,14 @@ import lombok.Setter;
 @Table(name = "veiculos", schema = "public")
 
 public class Veiculo extends AbstractEntity{
-    @Size(min = 10, max = 10)//verificar essa validação
-    @NotBlank
+    @Size(min = 10, max = 10, message = "placa inválida")//verificar essa validação
+    @NotBlank(message = "campo não informado")
     @Getter
     @Setter
     @Column(name = "placa", nullable = false, unique = true, length = 10)
     private String placa;
+    @NotBlank(message = "O modelo não pode ser nulo")
     @Valid
-    @NotBlank
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

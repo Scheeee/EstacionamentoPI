@@ -1,4 +1,5 @@
 package br.com.uniamerica.estacionamento.service;
+import br.com.uniamerica.estacionamento.entity.Condutor;
 import br.com.uniamerica.estacionamento.entity.Veiculo;
 import br.com.uniamerica.estacionamento.repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
@@ -34,6 +35,10 @@ public class VeiculoService {
     @Transactional
     public void delete(Veiculo veiculo) {
         veiculoRepository.delete(veiculo);
+    }
+
+    public List<Veiculo> findByAtivo() {
+        return veiculoRepository.findByAtivo(true);
     }
 
 

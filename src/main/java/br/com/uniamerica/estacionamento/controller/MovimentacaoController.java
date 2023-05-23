@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-    @RequestMapping(value = "/api/Movimentacao")
+    @RequestMapping(value = "/api/movimentacao")
 
     public class MovimentacaoController {
         @Autowired
@@ -40,6 +40,11 @@ import java.util.Optional;
     @GetMapping("/lista")
     public ResponseEntity <?> getALlMovimetacao(){
         return ResponseEntity.ok(movimentacaoService.findAll());
+    }
+    @GetMapping("/ativo")
+    public ResponseEntity<?> getByAtivo(){
+
+        return ResponseEntity.ok(movimentacaoService.findByAtivo());
     }
     @PostMapping
     public ResponseEntity<Object> saveMovimentacao(@RequestBody @Valid Movimentacao movimentacao){
