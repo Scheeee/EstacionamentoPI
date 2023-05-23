@@ -3,6 +3,8 @@ import br.com.uniamerica.estacionamento.entity.Condutor;
 import br.com.uniamerica.estacionamento.repository.CondutorRepository;
 import br.com.uniamerica.estacionamento.repository.MovimentacaoRepository;
 import br.com.uniamerica.estacionamento.service.CondutorService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import java.util.Optional;
 
 @Controller
     @RequestMapping(value = "/api/condutor")
-    public class CondutorController extends AbstractController{
+    public class CondutorController extends AbstractController {
 
         @Autowired
         private CondutorRepository condutorRep;
@@ -35,11 +39,17 @@ import java.util.Optional;
            }
         return ResponseEntity.ok(condutorService.findById(id));
         }
-
-        @GetMapping("/lista")
+    @GetMapping("/lista")
         public ResponseEntity <?> getALlCondutores(){
             return ResponseEntity.ok(condutorService.findAll());
         }
+
+    @GetMapping("/ativo")
+        public ResponseEntity<?> getByAtivo(){
+
+        return ResponseEntity.ok(condutorService.findByAtivo());
+    }
+
     @PostMapping
     public ResponseEntity<Object> saveCondutor(@RequestBody @Valid Condutor condutor){
          try {
@@ -83,6 +93,10 @@ import java.util.Optional;
     }
 
 
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return null;
     }
+}
 
 

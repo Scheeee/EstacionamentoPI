@@ -4,6 +4,7 @@ import br.com.uniamerica.estacionamento.entity.Modelo;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
 import br.com.uniamerica.estacionamento.repository.ModeloRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.AssertTrue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -22,7 +23,14 @@ public class ModeloService {
     public Modelo save(Modelo modelo) {
 
         Long marcaId = modelo.getMarca().getId();
-        marcaRepository.findById(marcaId);
+        //boolean existe = marcaRepository.findById(marcaId).get()!= null;
+
+        //if (marcaRepository.findById(marcaId).get()!= null) {
+
+        //}
+        Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
+        modelo.setMarca(marcaRepository.getById(marcaId));
+
         return modeloRepository.save(modelo);
     }
 

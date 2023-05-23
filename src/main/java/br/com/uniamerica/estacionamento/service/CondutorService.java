@@ -36,4 +36,8 @@ public class CondutorService {
     public void delete(Condutor condutor) {
         condutorRepository.delete(condutor);
     }
+
+    public List<Condutor> findByAtivo() {
+        return condutorRepository.findByAtivo(true);
+    }
 }

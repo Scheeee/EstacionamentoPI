@@ -1,5 +1,4 @@
 package br.com.uniamerica.estacionamento.service;
-import br.com.uniamerica.estacionamento.entity.Condutor;
 import br.com.uniamerica.estacionamento.entity.Config;
 import br.com.uniamerica.estacionamento.repository.ConfigRepository;
 import jakarta.transaction.Transactional;
@@ -37,5 +36,8 @@ public class ConfiguracaoService {
     @Transactional
     public void delete(Config config) {
             configRepository.delete(config);
+    }
+    public List<Config> findByAtivo() {
+        return configRepository.findByAtivo(true);
     }
 }

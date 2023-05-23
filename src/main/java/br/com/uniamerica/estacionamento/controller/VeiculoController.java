@@ -49,6 +49,7 @@ public class VeiculoController {
 
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateVeiculo(@PathVariable(value = "id")Long id,@RequestBody @Valid Veiculo veiculo){
         Optional<Veiculo> veiculoOptional = veiculoService.findById(id);

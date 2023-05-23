@@ -2,6 +2,7 @@ package br.com.uniamerica.estacionamento.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -38,6 +39,7 @@ public class Veiculo extends AbstractEntity{
     @Column(name = "tipo")
      private Tipo tipo;
     @NotNull(message = "campo não informado")
+    @Min(value = 1900, message = "Ano inválido")
     @Getter
     @Setter
     @Column(name = "ano")
