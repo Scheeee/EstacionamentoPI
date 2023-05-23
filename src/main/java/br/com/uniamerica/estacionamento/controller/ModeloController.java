@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -40,10 +42,16 @@ public class ModeloController {
     public ResponseEntity <?> getAllModelo(){
         return ResponseEntity.ok(modeloService.findAll());
     }
+    @GetMapping("/ativo")
+    public ResponseEntity<?> getByAtivo(){
+        return ResponseEntity.ok(modeloService.findByAtivo());
+    }
     @PostMapping
-    public ResponseEntity<Object> saveModelo(@RequestBody @Valid Modelo modelo){
+    public ResponseEntity<Object> saveModelo(@RequestBody  @Valid Modelo modelo){
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(modeloService.save(modelo));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(modeloService.save(modelo));
+
     }
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateModelo(@PathVariable(value = "id")Long id,@RequestBody @Valid Modelo modelo){
@@ -66,7 +74,7 @@ public class ModeloController {
             return  ResponseEntity.status(HttpStatus.OK).body(("Modelo não encontrado"));
         }
         modeloService.delete(modeloOptional.get());
-        return  ResponseEntity.status(HttpStatus.OK).body("Modelo deletado com sucesso");
+        return  ResponseEntity.status(HttpStatus.OK).body("Modelo deletado/desativado com sucesso");
 
     }
 

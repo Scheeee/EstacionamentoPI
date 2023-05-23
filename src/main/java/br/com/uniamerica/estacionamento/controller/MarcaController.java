@@ -42,12 +42,12 @@ public class MarcaController {
     }
     @PostMapping
     public ResponseEntity<Object> saveMarca(@RequestBody @Valid Marca marca){
-        try {
+        //try {
             return ResponseEntity.status(HttpStatus.CREATED).body(marcaService.save(marca));
-        }
-        catch (DataIntegrityViolationException e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-        }
+        //}
+        //catch (DataIntegrityViolationException e){
+            //return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+       // }
 
     }
     @PutMapping("/{id}")

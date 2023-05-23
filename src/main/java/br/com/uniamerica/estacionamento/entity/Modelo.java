@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
+
 @Entity
 @Table(name = "Modelos", schema = "public")
 public class Modelo extends AbstractEntity  {
@@ -16,7 +18,6 @@ public class Modelo extends AbstractEntity  {
     @Column(name = "nome")
     private String nome;
     @Valid
-    @NotNull(message = "Campo não informado")
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

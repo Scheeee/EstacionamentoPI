@@ -5,6 +5,8 @@ import br.com.uniamerica.estacionamento.repository.MarcaRepository;
 import br.com.uniamerica.estacionamento.repository.ModeloRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -27,7 +29,7 @@ public class ModeloService {
 
         Long marcaId = modelo.getMarca().getId();
 
-        Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
+       // Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
         modelo.setMarca(marcaRepository.getById(marcaId));
 
         return modeloRepository.save(modelo);
@@ -50,15 +52,15 @@ public class ModeloService {
     @Transactional
     public void delete(Modelo modelo) {
 
+        //boolean desativo = false;
+        boolean ativo = modelo.getMarca().isAtivo();
 
-        Long marcaId = modelo.getMarca().getId();
-        if(marcaRepository.findByAtivo(marcaId).get()!= true){
-
+        if(ativo == true){
+            modelo.setAtivo(false);
         }
-        Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
-
-        modelo.setMarca(marcaRepository.getById(marcaId));
-        modeloRepository.delete(modelo);
+        else{
+            modeloRepository.delete(modelo);
+        }
     }
 
 

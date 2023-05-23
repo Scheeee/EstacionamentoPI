@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-    @RequestMapping(value = "/api/Config")
+    @RequestMapping(value = "/api/config")
     public class ConfigController {
         
 
@@ -37,19 +37,22 @@ import java.util.Optional;
             }
             return ResponseEntity.ok(configService.findById(id));
         }
+        @GetMapping("/ativo")
+            public ResponseEntity<?> getByAtivo(){
+
+            return ResponseEntity.ok(configService.findByAtivo());
+        }
 
         @GetMapping("/lista")
         public ResponseEntity <?> getAllConfig(){
             return ResponseEntity.ok(configService.findAll());
         }
+
+
     @PostMapping
     public ResponseEntity<Object> saveConfig(@RequestBody Config config){
-        try {
+
             return ResponseEntity.status(HttpStatus.CREATED).body(configService.save(config));
-        }
-        catch (DataIntegrityViolationException e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-        }
 
     }
     @PutMapping("/{id}")
