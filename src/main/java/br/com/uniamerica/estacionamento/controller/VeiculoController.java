@@ -45,12 +45,10 @@ public class VeiculoController {
     }
     @PostMapping
     public ResponseEntity<Object> saveVeiculo(@RequestBody @Valid Veiculo veiculo){
-        try {
+
             return ResponseEntity.status(HttpStatus.CREATED).body(veiculoService.save(veiculo));
-        }
-        catch (DataIntegrityViolationException e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-        }
+
+
 
     }
 

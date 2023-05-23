@@ -1,6 +1,6 @@
 package br.com.uniamerica.estacionamento.service;
-import br.com.uniamerica.estacionamento.entity.Condutor;
 import br.com.uniamerica.estacionamento.entity.Veiculo;
+import br.com.uniamerica.estacionamento.repository.ModeloRepository;
 import br.com.uniamerica.estacionamento.repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +14,19 @@ import java.util.Optional;
 public class VeiculoService {
     @Autowired
     final VeiculoRepository veiculoRepository;
+    @Autowired
+    final ModeloRepository modeloRepository;
 
-    public VeiculoService(VeiculoRepository veiculoRepository) {
+    public VeiculoService(VeiculoRepository veiculoRepository, ModeloRepository modeloRepository) {
         this.veiculoRepository = veiculoRepository;
+        this.modeloRepository = modeloRepository;
     }
 
     @Transactional//(rollbackOn = Exception.class)
     public Veiculo save(Veiculo veiculo) {
+        Long modeloId = veiculo.getModelo().getId();
+
+       veiculo.setModelo(modeloRepository.getById(modeloId));
         return veiculoRepository.save(veiculo);
     }
 

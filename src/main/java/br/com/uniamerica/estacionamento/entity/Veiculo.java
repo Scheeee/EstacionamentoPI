@@ -17,22 +17,22 @@ public class Veiculo extends AbstractEntity{
     @NotBlank(message = "campo não informado")
     @Getter
     @Setter
-    @Column(name = "placa", nullable = false, unique = true, length = 10)
+    @Column(name = "placa")
     private String placa;
-    @NotBlank(message = "O modelo não pode ser nulo")
+
     @Valid
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "modelo", nullable = false)
+    @JoinColumn(name = "modelo")
      private Modelo modelo;
-    @NotBlank(message = "Campo não informado")
+    @NotNull(message = "Campo não informado")
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "cor")
      private Cor cor;
-    @NotBlank(message = "Campo não informado")
+    @NotNull(message = "Campo não informado")
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)

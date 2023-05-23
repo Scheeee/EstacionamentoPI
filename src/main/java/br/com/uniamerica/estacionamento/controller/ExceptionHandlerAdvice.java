@@ -44,13 +44,13 @@ public class ExceptionHandlerAdvice {
 
         return errors;
     }
-    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    //@ExceptionHandler(AssertionError.class)
-   // public ResponseEntity<String> handleAssertionError(AssertionError error) {
-    //    String mensagemDeErro = error.getMessage();
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(AssertionError.class)
+    public ResponseEntity<String> handleAssertionError(AssertionError error) {
+        //String mensagemDeErro = error.getMessage();
 
-    //        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro de validação");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro de validação");
 
 
-    //}
+    }
 }

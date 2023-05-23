@@ -29,7 +29,7 @@ public class ModeloService {
 
         Long marcaId = modelo.getMarca().getId();
 
-       // Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
+        Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
         modelo.setMarca(marcaRepository.getById(marcaId));
 
         return modeloRepository.save(modelo);

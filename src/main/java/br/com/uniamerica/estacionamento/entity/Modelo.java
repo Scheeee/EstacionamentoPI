@@ -17,7 +17,7 @@ public class Modelo extends AbstractEntity  {
     @Setter
     @Column(name = "nome")
     private String nome;
-    @Valid
+   // @Valid
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

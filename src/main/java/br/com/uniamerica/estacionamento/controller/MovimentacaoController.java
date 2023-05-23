@@ -10,8 +10,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -39,22 +41,27 @@ import java.util.Optional;
 
     @GetMapping("/lista")
     public ResponseEntity <?> getALlMovimetacao(){
-        return ResponseEntity.ok(movimentacaoService.findAll());
+
+        if(movimentacaoService.findAll().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não há nenhuma movimentação");
+        }
+        else {
+            return ResponseEntity.ok(movimentacaoService.findAll());
+        }
     }
     @GetMapping("/ativo")
     public ResponseEntity<?> getByAtivo(){
-
-        return ResponseEntity.ok(movimentacaoService.findByAtivo());
+        if(movimentacaoService.findByAtivo().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não há nenhuma movimentação ativa");
+        }
+        else {
+            return ResponseEntity.ok(movimentacaoService.findByAtivo());
+        }
     }
     @PostMapping
     public ResponseEntity<Object> saveMovimentacao(@RequestBody @Valid Movimentacao movimentacao){
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(movimentacaoService.save(movimentacao));
-        }
-        catch (DataIntegrityViolationException e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-        }
 
+            return ResponseEntity.status(HttpStatus.CREATED).body(movimentacaoService.save(movimentacao));
     }
 
     @PutMapping("/{id}")
