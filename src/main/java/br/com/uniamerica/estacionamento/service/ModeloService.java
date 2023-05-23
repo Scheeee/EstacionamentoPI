@@ -4,7 +4,6 @@ import br.com.uniamerica.estacionamento.entity.Modelo;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
 import br.com.uniamerica.estacionamento.repository.ModeloRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.AssertTrue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -15,19 +14,19 @@ import java.util.Optional;
 @Service
 public class ModeloService {
     @Autowired
-    private ModeloRepository modeloRepository;
+    final ModeloRepository modeloRepository;
     @Autowired
     private MarcaRepository marcaRepository;
+
+    public ModeloService(ModeloRepository modeloRepository) {
+        this.modeloRepository = modeloRepository;
+    }
 
     @Transactional//(rollbackOn = Exception.class)
     public Modelo save(Modelo modelo) {
 
         Long marcaId = modelo.getMarca().getId();
-        //boolean existe = marcaRepository.findById(marcaId).get()!= null;
 
-        //if (marcaRepository.findById(marcaId).get()!= null) {
-
-        //}
         Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
         modelo.setMarca(marcaRepository.getById(marcaId));
 
@@ -35,15 +34,30 @@ public class ModeloService {
     }
 
     public List<Modelo> findAll(){
+
         return modeloRepository.findAll();
     }
 
     public Optional<Modelo> findById(long id){
+
         return modeloRepository.findById(id);
+    }
+    public List<Modelo> findByAtivo() {
+
+        return modeloRepository.findByAtivo(true);
     }
 
     @Transactional
     public void delete(Modelo modelo) {
+
+
+        Long marcaId = modelo.getMarca().getId();
+        if(marcaRepository.findByAtivo(marcaId).get()!= true){
+
+        }
+        Assert.isTrue(marcaRepository.findById(marcaId).get()!= null, "Marca não encontrada!");
+
+        modelo.setMarca(marcaRepository.getById(marcaId));
         modeloRepository.delete(modelo);
     }
 

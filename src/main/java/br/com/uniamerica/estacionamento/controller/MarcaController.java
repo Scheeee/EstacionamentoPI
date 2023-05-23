@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/api/Marca")
+@RequestMapping(value = "/api/marca")
 public class MarcaController {
 
     @Autowired

@@ -19,8 +19,7 @@ import java.util.Optional;
 @RequestMapping(value = "/api/modelo")
 public class ModeloController {
 
-    @Autowired
-    private ModeloRepository modeloRep;
+
     @Autowired
     final ModeloService modeloService;
 
@@ -43,13 +42,8 @@ public class ModeloController {
     }
     @PostMapping
     public ResponseEntity<Object> saveModelo(@RequestBody @Valid Modelo modelo){
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(modeloService.save(modelo));
-        }
-        catch (DataIntegrityViolationException e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-        }
 
+            return ResponseEntity.status(HttpStatus.CREATED).body(modeloService.save(modelo));
     }
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateModelo(@PathVariable(value = "id")Long id,@RequestBody @Valid Modelo modelo){
