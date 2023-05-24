@@ -73,7 +73,7 @@ public class MarcaController {
             return  ResponseEntity.status(HttpStatus.OK).body(("Marca não encontrada"));
         }
         marcaService.delete(marcaOptional.get());
-        return  ResponseEntity.status(HttpStatus.OK).body("Marca deletada com sucesso");
+        return  ResponseEntity.status(HttpStatus.OK).body("Marca desativa/deletada com sucesso");
 
     }
 

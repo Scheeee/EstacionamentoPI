@@ -35,7 +35,14 @@ public class ConfiguracaoService {
 
     @Transactional
     public void delete(Config config) {
+        boolean ativo = config.isAtivo();
+
+        if(ativo == true){
+            config.setAtivo(false);
+        }
+        else {
             configRepository.delete(config);
+        }
     }
     public List<Config> findByAtivo() {
         return configRepository.findByAtivo(true);

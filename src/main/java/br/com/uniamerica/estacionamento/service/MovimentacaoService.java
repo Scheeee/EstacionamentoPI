@@ -7,7 +7,6 @@ import br.com.uniamerica.estacionamento.repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +22,14 @@ public class MovimentacaoService {
     @Autowired
     final ConfigRepository configRepository;
 
+
+
     public MovimentacaoService(MovimentacaoRepository movimentacaoRepository, VeiculoRepository veiculoRepository, CondutorRepository condutorRepository, ConfigRepository configRepository) {
         this.movimentacaoRepository = movimentacaoRepository;
         this.veiculoRepository = veiculoRepository;
         this.condutorRepository = condutorRepository;
         this.configRepository = configRepository;
+
     }
 
     @Transactional//(rollbackOn = Exception.class)
@@ -51,11 +53,24 @@ public class MovimentacaoService {
 
     @Transactional
     public void delete(Movimentacao movimentacao) {
-        movimentacaoRepository.delete(movimentacao);
+        boolean ativo = movimentacao.isAtivo();
+
+        if(ativo == true){
+            movimentacao.setAtivo(false);
+        }
+        else {
+            movimentacaoRepository.delete(movimentacao);
+        }
     }
 
     public List<Movimentacao> findByAtivo() {
         return movimentacaoRepository.findByAtivo(true);
+    }
+
+    @Transactional//(rollbackOn = Exception.class)
+    public Movimentacao put(Long id, Movimentacao movimentacao) {
+
+        return movimentacaoRepository.save(movimentacao);
     }
 
     /*public boolean notNull(Movimentacao movimentacao){

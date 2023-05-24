@@ -80,7 +80,7 @@ public class VeiculoController {
             return  ResponseEntity.status(HttpStatus.OK).body(("Veiculo não encontrado"));
         }
         veiculoService.delete(veiculoOptional.get());
-        return  ResponseEntity.status(HttpStatus.OK).body("Veiculo deletado com sucesso");
+        return  ResponseEntity.status(HttpStatus.OK).body("Veiculo deletado/desativado com sucesso");
 
     }
 }

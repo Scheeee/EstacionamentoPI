@@ -90,7 +90,7 @@ import java.util.Optional;
             return  ResponseEntity.status(HttpStatus.OK).body(("Condutor não encontrado"));
         }
         condutorService.delete(condutorOptional.get());
-        return  ResponseEntity.status(HttpStatus.OK).body("Condutor deletado com sucesso");
+        return  ResponseEntity.status(HttpStatus.OK).body("Condutor desativado/deletado com sucesso");
 
     }
 

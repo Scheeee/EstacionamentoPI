@@ -87,7 +87,7 @@ import java.util.Optional;
             return  ResponseEntity.status(HttpStatus.OK).body(("Configuração não encontrada"));
         }
         configService.delete(configOptional.get());
-        return  ResponseEntity.status(HttpStatus.OK).body("Configuração deletada com sucesso");
+        return  ResponseEntity.status(HttpStatus.OK).body("Configuração desativada/deletada com sucesso");
 
     }
 

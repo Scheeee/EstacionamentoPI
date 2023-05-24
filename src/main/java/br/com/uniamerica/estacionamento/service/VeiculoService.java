@@ -40,7 +40,14 @@ public class VeiculoService {
 
     @Transactional
     public void delete(Veiculo veiculo) {
-        veiculoRepository.delete(veiculo);
+        boolean ativo = veiculo.isAtivo();
+
+        if(ativo == true){
+            veiculo.setAtivo(false);
+        }
+        else {
+            veiculoRepository.delete(veiculo);
+        }
     }
 
     public List<Veiculo> findByAtivo() {

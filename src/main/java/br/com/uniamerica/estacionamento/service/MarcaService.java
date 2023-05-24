@@ -36,7 +36,14 @@ public class MarcaService {
 
     @Transactional
     public void delete(Marca marca) {
-        marcaRepository.delete(marca);
+        boolean ativo = marca.isAtivo();
+
+        if(ativo == true){
+            marca.setAtivo(false);
+        }
+        else {
+            marcaRepository.delete(marca);
+        }
     }
     public List<Marca> findByAtivo() {
         return marcaRepository.findByAtivo(true);

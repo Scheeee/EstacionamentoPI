@@ -34,7 +34,14 @@ public class CondutorService {
 
     @Transactional
     public void delete(Condutor condutor) {
-        condutorRepository.delete(condutor);
+        boolean ativo = condutor.isAtivo();
+
+        if(ativo == true){
+            condutor.setAtivo(false);
+        }
+        else {
+            condutorRepository.delete(condutor);
+        }
     }
 
     public List<Condutor> findByAtivo() {

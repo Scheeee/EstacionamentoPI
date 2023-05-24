@@ -70,9 +70,7 @@ import java.util.Optional;
         if(!movimentacaoOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movimentação não encontrada");
         }
-
         var movimentacaoNovo = movimentacaoOptional.get();
-
         movimentacaoNovo.setVeiculo(movimentacao.getVeiculo());
         movimentacaoNovo.setCondutor(movimentacao.getCondutor());
         movimentacaoNovo.setSaida(movimentacao.getSaida());
@@ -96,7 +94,7 @@ import java.util.Optional;
             return  ResponseEntity.status(HttpStatus.OK).body(("Movimentação não encontrada"));
         }
         movimentacaoService.delete(movimentacaoOptional.get());
-        return  ResponseEntity.status(HttpStatus.OK).body("Movimentação deletada com sucesso");
+        return  ResponseEntity.status(HttpStatus.OK).body("Movimentação desativada/deletada com sucesso");
 
     }
 
